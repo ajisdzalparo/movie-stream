@@ -59,6 +59,15 @@ const SERVERS: EmbedServer[] = [
     }
   },
   {
+    name: "AutoEmbed",
+    domain: "autoembed.co",
+    getUrl: (tmdbId, _imdbId, s, e) => {
+      return s && e
+        ? `https://autoembed.co/tv/tmdb/${tmdbId}-${s}-${e}`
+        : `https://autoembed.co/movie/tmdb/${tmdbId}`;
+    }
+  },
+  {
     name: "SuperEmbed",
     domain: "multiembed.to",
     getUrl: (tmdbId, _imdbId, s, e) => {
@@ -68,13 +77,12 @@ const SERVERS: EmbedServer[] = [
     }
   },
   {
-    name: "VidSrc.to",
-    domain: "vidsrc.to",
-    getUrl: (tmdbId, imdbId, s, e) => {
-      const id = imdbId || tmdbId;
+    name: "MoviesAPI",
+    domain: "moviesapi.club",
+    getUrl: (tmdbId, _imdbId, s, e) => {
       return s && e
-        ? `https://vidsrc.to/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.to/embed/movie/${id}`;
+        ? `https://moviesapi.club/tv/${tmdbId}-${s}-${e}`
+        : `https://moviesapi.club/movie/${tmdbId}`;
     }
   }
 ];
