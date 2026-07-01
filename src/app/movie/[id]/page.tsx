@@ -5,9 +5,6 @@ import { getMovieDetails } from "@/lib/tmdb";
 import { WatchlistActions } from "@/components/watchlist/watchlist-actions";
 import { Carousel } from "@/components/ui/carousel";
 
-// ISR setup
-export const revalidate = 86400; // Cache page for 24 hours
-
 interface PageProps {
   params: Promise<{ id: string }>;
 }
