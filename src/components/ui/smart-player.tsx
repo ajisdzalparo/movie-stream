@@ -19,33 +19,24 @@ interface EmbedServer {
 
 const SERVERS: EmbedServer[] = [
   {
-    name: "Server 1 (VidPlus - Default)",
-    getUrl: (tmdbId, imdbId, s, e) => {
+    name: "Server 1 (VidLink - Cepat)",
+    getUrl: (tmdbId, _imdbId, s, e) => {
       return s && e
-        ? `https://player.vidplus.to/embed/tv/${tmdbId}/${s}/${e}?controls=1`
-        : `https://player.vidplus.to/embed/movie/${tmdbId}?controls=1`;
+        ? `https://vidlink.pro/tv/${tmdbId}/${s}/${e}?autoplay=1`
+        : `https://vidlink.pro/movie/${tmdbId}?autoplay=1`;
     }
   },
   {
-    name: "Server 2 (VidSrc.xyz)",
-    getUrl: (tmdbId, imdbId, s, e) => {
-      const id = imdbId || tmdbId;
-      return s && e
-        ? `https://vidsrc.xyz/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.xyz/embed/movie/${id}`;
-    }
-  },
-  {
-    name: "Server 3 (VidSrc.to)",
+    name: "Server 2 (VidSrc Pro)",
     getUrl: (tmdbId, imdbId, s, e) => {
       const id = imdbId || tmdbId;
       return s && e
-        ? `https://vidsrc.to/embed/tv/${id}/${s}/${e}`
-        : `https://vidsrc.to/embed/movie/${id}`;
+        ? `https://vidsrc.pro/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.pro/embed/movie/${id}`;
     }
   },
   {
-    name: "Server 4 (Embed.su)",
+    name: "Server 3 (Embed.su)",
     getUrl: (tmdbId, imdbId, s, e) => {
       const id = imdbId || tmdbId;
       return s && e
@@ -54,11 +45,29 @@ const SERVERS: EmbedServer[] = [
     }
   },
   {
-    name: "Server 5 (SuperEmbed)",
+    name: "Server 4 (VidSrc.cc)",
     getUrl: (tmdbId, imdbId, s, e) => {
+      const id = imdbId || tmdbId;
+      return s && e
+        ? `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.cc/v2/embed/movie/${id}`;
+    }
+  },
+  {
+    name: "Server 5 (SuperEmbed)",
+    getUrl: (tmdbId, _imdbId, s, e) => {
       return s && e
         ? `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1&s=${s}&e=${e}`
         : `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1`;
+    }
+  },
+  {
+    name: "Server 6 (VidSrc.to)",
+    getUrl: (tmdbId, imdbId, s, e) => {
+      const id = imdbId || tmdbId;
+      return s && e
+        ? `https://vidsrc.to/embed/tv/${id}/${s}/${e}`
+        : `https://vidsrc.to/embed/movie/${id}`;
     }
   }
 ];
