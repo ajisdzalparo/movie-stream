@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NetStream - Watch Movies & TV Shows Online Free",
+  title: "ShientaMovie - Watch Movies & TV Shows Online Free",
   description:
     "Free open-source movie and TV show streaming catalog index. Watch instantly with stateful continue watching, watchlist, and multiple player sources.",
 };

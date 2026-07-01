@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const movie = await getMovieDetails(id);
   
   return {
-    title: `Watching: ${movie?.title || "Movie"} - NetStream`,
-    description: `Watch ${movie?.title} online for free on NetStream.`,
+    title: `Watching: ${movie?.title || "Movie"} - ShientaMovie`,
+    description: `Watch ${movie?.title} online for free on ShientaMovie.`,
   };
 }
 

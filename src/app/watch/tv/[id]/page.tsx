@@ -21,8 +21,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const show = await getTVShowDetails(id);
   
   return {
-    title: `Watching: S${s}E${e} - ${show?.name || "TV Show"} - NetStream`,
-    description: `Watch Season ${s} Episode ${e} of ${show?.name} online for free on NetStream.`,
+    title: `Watching: S${s}E${e} - ${show?.name || "TV Show"} - ShientaMovie`,
+    description: `Watch Season ${s} Episode ${e} of ${show?.name} online for free on ShientaMovie.`,
   };
 }
 

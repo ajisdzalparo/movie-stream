@@ -40,7 +40,7 @@ export function WatchlistActions({
   useEffect(() => {
     try {
       // Check Watchlist
-      const watchlistJson = localStorage.getItem("netstream_watchlist");
+      const watchlistJson = localStorage.getItem("shientamovie_watchlist");
       if (watchlistJson) {
         const watchlist = JSON.parse(watchlistJson) as LocalWatchlistItem[];
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -48,7 +48,7 @@ export function WatchlistActions({
       }
 
       // Check Watched
-      const watchedJson = localStorage.getItem("netstream_watched");
+      const watchedJson = localStorage.getItem("shientamovie_watched");
       if (watchedJson) {
         const watched = JSON.parse(watchedJson) as number[];
         setIsWatched(watched.includes(id));
@@ -60,7 +60,7 @@ export function WatchlistActions({
 
   const toggleWatchlist = () => {
     try {
-      const watchlistJson = localStorage.getItem("netstream_watchlist");
+      const watchlistJson = localStorage.getItem("shientamovie_watchlist");
       let watchlist = (watchlistJson ? JSON.parse(watchlistJson) : []) as LocalWatchlistItem[];
 
       if (isInWatchlist) {
@@ -79,7 +79,7 @@ export function WatchlistActions({
         });
         setIsInWatchlist(true);
       }
-      localStorage.setItem("netstream_watchlist", JSON.stringify(watchlist));
+      localStorage.setItem("shientamovie_watchlist", JSON.stringify(watchlist));
     } catch (e) {
       console.error(e);
     }
@@ -87,7 +87,7 @@ export function WatchlistActions({
 
   const toggleWatched = () => {
     try {
-      const watchedJson = localStorage.getItem("netstream_watched");
+      const watchedJson = localStorage.getItem("shientamovie_watched");
       let watched = watchedJson ? JSON.parse(watchedJson) : [];
 
       if (isWatched) {
@@ -97,7 +97,7 @@ export function WatchlistActions({
         watched.push(id);
         setIsWatched(true);
       }
-      localStorage.setItem("netstream_watched", JSON.stringify(watched));
+      localStorage.setItem("shientamovie_watched", JSON.stringify(watched));
     } catch (e) {
       console.error(e);
     }

@@ -149,7 +149,7 @@ export function SmartPlayer({ tmdbId, imdbId, type, season, episode, title }: Sm
 
       // Check if we have a cached fastest server (valid for 10 minutes)
       try {
-        const cached = localStorage.getItem("netstream_fastest_server");
+        const cached = localStorage.getItem("shientamovie_fastest_server");
         if (cached) {
           const { index, timestamp } = JSON.parse(cached);
           if (Date.now() - timestamp < 10 * 60 * 1000) {
@@ -184,7 +184,7 @@ export function SmartPlayer({ tmdbId, imdbId, type, season, episode, title }: Sm
         setSelectedServerIndex(fastest.index);
         // Cache the result
         try {
-          localStorage.setItem("netstream_fastest_server", JSON.stringify({
+          localStorage.setItem("shientamovie_fastest_server", JSON.stringify({
             index: fastest.index,
             timestamp: Date.now(),
           }));
@@ -203,7 +203,7 @@ export function SmartPlayer({ tmdbId, imdbId, type, season, episode, title }: Sm
     if (!tmdbId) return;
 
     try {
-      const historyKey = "netstream_continue_watching";
+      const historyKey = "shientamovie_continue_watching";
       const existingHistoryJson = localStorage.getItem(historyKey);
       let history = (existingHistoryJson ? JSON.parse(existingHistoryJson) : []) as HistoryItem[];
 
@@ -268,7 +268,7 @@ export function SmartPlayer({ tmdbId, imdbId, type, season, episode, title }: Sm
     if (fastest.latency < Infinity) {
       setSelectedServerIndex(fastest.index);
       try {
-        localStorage.setItem("netstream_fastest_server", JSON.stringify({
+        localStorage.setItem("shientamovie_fastest_server", JSON.stringify({
           index: fastest.index,
           timestamp: Date.now(),
         }));

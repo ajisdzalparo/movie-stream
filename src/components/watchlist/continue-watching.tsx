@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ export function ContinueWatching() {
 
   useEffect(() => {
     try {
-      const historyJson = localStorage.getItem("netstream_continue_watching");
+      const historyJson = localStorage.getItem("shientamovie_continue_watching");
       if (historyJson) {
         setItems(JSON.parse(historyJson));
       }

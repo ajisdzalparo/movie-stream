@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { WatchlistClient } from "@/components/watchlist/watchlist-client";
 
 export const metadata: Metadata = {
-  title: "Your Watchlist - NetStream",
+  title: "Your Watchlist - ShientaMovie",
   description: "Manage your saved movies, TV series, and continue watching items.",
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,12 +24,12 @@ export function WatchlistClient() {
 
   useEffect(() => {
     try {
-      const watchlistJson = localStorage.getItem("netstream_watchlist");
+      const watchlistJson = localStorage.getItem("shientamovie_watchlist");
       if (watchlistJson) {
         setWatchlist(JSON.parse(watchlistJson));
       }
 
-      const watchedJson = localStorage.getItem("netstream_watched");
+      const watchedJson = localStorage.getItem("shientamovie_watched");
       if (watchedJson) {
         setWatchedIds(JSON.parse(watchedJson));
       }
@@ -41,7 +42,7 @@ export function WatchlistClient() {
     try {
       const updated = watchlist.filter((item) => !(item.id === id && item.type === type));
       setWatchlist(updated);
-      localStorage.setItem("netstream_watchlist", JSON.stringify(updated));
+      localStorage.setItem("shientamovie_watchlist", JSON.stringify(updated));
     } catch (e) {
       console.error(e);
     }
@@ -50,14 +51,14 @@ export function WatchlistClient() {
   const clearAllWatchlist = () => {
     if (window.confirm("Are you sure you want to clear your entire watchlist?")) {
       setWatchlist([]);
-      localStorage.removeItem("netstream_watchlist");
+      localStorage.removeItem("shientamovie_watchlist");
     }
   };
 
   const clearHistory = () => {
     if (window.confirm("Are you sure you want to clear your watching history?")) {
       setWatchedIds([]);
-      localStorage.removeItem("netstream_watched");
+      localStorage.removeItem("shientamovie_watched");
     }
   };
 
@@ -201,7 +202,7 @@ export function WatchlistClient() {
             <Bookmark className="h-12 w-12 text-muted-foreground/30 mb-3" />
             <h3 className="text-base font-semibold text-muted-foreground">Your watchlist is empty</h3>
             <p className="text-xs text-muted-foreground/55 mt-1 max-w-xs">
-              Explore trending titles on the homepage and click "Add to Watchlist" to save them here.
+              Explore trending titles on the homepage and click &quot;Add to Watchlist&quot; to save them here.
             </p>
             <Link
               href="/"
@@ -241,7 +242,7 @@ export function WatchlistClient() {
             <Eye className="h-12 w-12 text-muted-foreground/30 mb-3" />
             <h3 className="text-base font-semibold text-muted-foreground">No watched history found</h3>
             <p className="text-xs text-muted-foreground/55 mt-1 max-w-xs">
-              Mark titles as watched on their details pages to keep track of what you've finished.
+              Mark titles as watched on their details pages to keep track of what you&apos;ve finished.
             </p>
           </div>
         )

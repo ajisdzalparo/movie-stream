@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const show = await getTVShowDetails(id);
   
   return {
-    title: `${show?.name || "TV Show Details"} - NetStream`,
-    description: show?.overview || "Watch this TV show on NetStream.",
+    title: `${show?.name || "TV Show Details"} - ShientaMovie`,
+    description: show?.overview || "Watch this TV show on ShientaMovie.",
   };
 }
 
