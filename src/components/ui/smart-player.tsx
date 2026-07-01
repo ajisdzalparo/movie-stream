@@ -39,6 +39,24 @@ const SERVERS: EmbedServer[] = [
     }
   },
   {
+    name: "VidSrc.me",
+    domain: "vidsrc.me",
+    getUrl: (tmdbId, _imdbId, s, e) => {
+      return s && e
+        ? `https://vidsrc.me/embed/tv/${tmdbId}/${s}/${e}`
+        : `https://vidsrc.me/embed/movie/${tmdbId}`;
+    }
+  },
+  {
+    name: "2Embed",
+    domain: "2embed.cc",
+    getUrl: (tmdbId, _imdbId, s, e) => {
+      return s && e
+        ? `https://www.2embed.cc/embedtv/${tmdbId}&s=${s}&e=${e}`
+        : `https://www.2embed.cc/embed/${tmdbId}`;
+    }
+  },
+  {
     name: "Embed.su",
     domain: "embed.su",
     getUrl: (tmdbId, imdbId, s, e) => {
