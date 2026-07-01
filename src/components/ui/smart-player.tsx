@@ -136,6 +136,7 @@ export function SmartPlayer({ tmdbId, imdbId, type, season, episode, title }: Sm
             className="h-full w-full border-none"
             allowFullScreen
             allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-presentation allow-forms allow-pointer-lock"
           />
         )}
       </div>
