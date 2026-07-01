@@ -5,7 +5,10 @@ import {
   getTrendingMovies, 
   getTrendingTVShows, 
   getPopularMovies, 
-  getTopRatedTVShows, 
+  getTopRatedTVShows,
+  getNowPlayingMovies,
+  getUpcomingMovies,
+  getPopularTVShows,
   isTMDBConfigured 
 } from "@/lib/tmdb";
 import { Carousel } from "@/components/ui/carousel";
@@ -15,11 +18,14 @@ export default async function Home() {
   const configured = isTMDBConfigured();
   
   // Parallel fetch movie sections
-  const [trendingMovies, trendingTVShows, popularMovies, topRatedTVShows] = await Promise.all([
+  const [trendingMovies, trendingTVShows, popularMovies, topRatedTVShows, nowPlaying, upcoming, popularTV] = await Promise.all([
     getTrendingMovies(),
     getTrendingTVShows(),
     getPopularMovies(),
     getTopRatedTVShows(),
+    getNowPlayingMovies(),
+    getUpcomingMovies(),
+    getPopularTVShows(),
   ]);
 
   // Pick first trending movie for the Hero Banner
@@ -122,8 +128,11 @@ export default async function Home() {
       <div className="flex flex-col gap-2">
         <Carousel title="Trending Movies" items={trendingMovies} />
         <Carousel title="Trending TV Series" items={trendingTVShows} />
+        <Carousel title="Now Playing" items={nowPlaying} />
         <Carousel title="Popular Releases" items={popularMovies} />
+        <Carousel title="Upcoming Movies" items={upcoming} />
         <Carousel title="Top Rated TV Shows" items={topRatedTVShows} />
+        <Carousel title="Popular TV Shows" items={popularTV} />
       </div>
     </div>
   );

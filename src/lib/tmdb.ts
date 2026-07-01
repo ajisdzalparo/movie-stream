@@ -371,6 +371,72 @@ export async function getTVSeasonDetails(tvId: number, seasonNumber: number): Pr
   }
 }
 
+export async function getNowPlayingMovies(): Promise<TMDBContent[]> {
+  if (!isTMDBConfigured()) return MOCK_MOVIES;
+  try {
+    const data = await tmdbFetch<{ results: TMDBContent[] }>('/movie/now_playing');
+    return data.results.map(m => ({ ...m, media_type: 'movie' as const }));
+  } catch (error) {
+    console.error('Error fetching now playing movies', error);
+    return MOCK_MOVIES;
+  }
+}
+
+export async function getUpcomingMovies(): Promise<TMDBContent[]> {
+  if (!isTMDBConfigured()) return MOCK_MOVIES;
+  try {
+    const data = await tmdbFetch<{ results: TMDBContent[] }>('/movie/upcoming');
+    return data.results.map(m => ({ ...m, media_type: 'movie' as const }));
+  } catch (error) {
+    console.error('Error fetching upcoming movies', error);
+    return MOCK_MOVIES;
+  }
+}
+
+export async function getPopularTVShows(): Promise<TMDBContent[]> {
+  if (!isTMDBConfigured()) return MOCK_TV_SHOWS;
+  try {
+    const data = await tmdbFetch<{ results: TMDBContent[] }>('/tv/popular');
+    return data.results.map(t => ({ ...t, media_type: 'tv' as const }));
+  } catch (error) {
+    console.error('Error fetching popular TV shows', error);
+    return MOCK_TV_SHOWS;
+  }
+}
+
+// Fetch a large collection of content from multiple categories
+export async function getAllDiscoverContent(): Promise<TMDBContent[]> {
+  if (!isTMDBConfigured()) {
+    return [...MOCK_MOVIES, ...MOCK_TV_SHOWS];
+  }
+  try {
+    const [trending, popular, nowPlaying, upcoming, trendingTv, topTv, popularTv] = await Promise.all([
+      getTrendingMovies(),
+      getPopularMovies(),
+      getNowPlayingMovies(),
+      getUpcomingMovies(),
+      getTrendingTVShows(),
+      getTopRatedTVShows(),
+      getPopularTVShows(),
+    ]);
+
+    // Combine and deduplicate by id+type
+    const seen = new Set<string>();
+    const all: TMDBContent[] = [];
+    for (const item of [...trending, ...popular, ...nowPlaying, ...upcoming, ...trendingTv, ...topTv, ...popularTv]) {
+      const key = `${item.media_type}-${item.id}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        all.push(item);
+      }
+    }
+    return all;
+  } catch (error) {
+    console.error('Error fetching all discover content', error);
+    return [...MOCK_MOVIES, ...MOCK_TV_SHOWS];
+  }
+}
+
 export async function searchMulti(query: string): Promise<TMDBContent[]> {
   if (!isTMDBConfigured() || !query) {
     const allMock = [...MOCK_MOVIES, ...MOCK_TV_SHOWS];
@@ -380,8 +446,13 @@ export async function searchMulti(query: string): Promise<TMDBContent[]> {
     );
   }
   try {
-    const data = await tmdbFetch<{ results: TMDBContent[] }>(`/search/multi?query=${encodeURIComponent(query)}`);
-    return data.results
+    // Fetch 2 pages for more results
+    const [page1, page2] = await Promise.all([
+      tmdbFetch<{ results: TMDBContent[] }>(`/search/multi?query=${encodeURIComponent(query)}&page=1`),
+      tmdbFetch<{ results: TMDBContent[] }>(`/search/multi?query=${encodeURIComponent(query)}&page=2`),
+    ]);
+    const combined = [...page1.results, ...page2.results];
+    return combined
       .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
       .map(item => ({
         id: item.id,
