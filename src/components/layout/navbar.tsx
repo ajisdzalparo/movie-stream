@@ -30,7 +30,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-2xl font-black tracking-wider text-transparent transition-all duration-300 hover:scale-105 hover:from-red-500 hover:to-red-400 drop-shadow-[0_0_15px_rgba(229,9,20,0.4)]">
-            SHIENTA MOVIE
+            SHIENTA MOVIES
           </span>
         </Link>
 
